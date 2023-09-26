@@ -22,7 +22,7 @@ SHELL ["conda", "run", "-n", "basehome", "/bin/bash", "-c"]
 WORKDIR /workspace
 
 # 安装PyTorch和相关的库
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # 克隆detectron2仓库
 RUN git clone https://github.com/facebookresearch/detectron2.git
