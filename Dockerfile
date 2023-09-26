@@ -23,6 +23,7 @@ RUN git clone https://github.com/facebookresearch/detectron2.git
 WORKDIR /workspace/detectron2
 RUN python -m pip install -e .
 
+WORKDIR /workspace
 # 克隆Dassl仓库
 RUN git clone https://github.com/KaiyangZhou/Dassl.pytorch.git
 
