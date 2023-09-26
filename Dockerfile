@@ -1,14 +1,14 @@
-# 指定基础镜像，从NVIDIA的CUDA 11.0 base镜像开始
-FROM nvidia/cuda:11.0-base-ubuntu20.04
+# 指定基础镜像，从NVIDIA的CUDA 11.8.0 base镜像开始
+FROM nvidia/cuda:11.8.0-devel-ubuntu22.04
 
 # 更新apt-get并安装必要的依赖包
 RUN apt-get update && \
     apt-get install -y build-essential git wget libglib2.0-0 libsm6 libxext6 libxrender-dev
 
 # 下载并安装Anaconda
-RUN wget https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh \
-    && bash Anaconda3-2020.02-Linux-x86_64.sh -b \
-    && rm Anaconda3-2020.02-Linux-x86_64.sh
+RUN wget https://repo.anaconda.com/archive/Anaconda3-2023.07-2-Linux-x86_64.sh \
+    && bash Anaconda3-2023.07-2-Linux-x86_64.sh -b \
+    && rm Anaconda3-2023.07-2-Linux-x86_64.sh
 
 ENV PATH /root/anaconda3/bin:$PATH
 
@@ -22,7 +22,7 @@ SHELL ["conda", "run", "-n", "basehome", "/bin/bash", "-c"]
 WORKDIR /workspace
 
 # 安装PyTorch和相关的库
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu110
+RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # 克隆detectron2仓库
 RUN git clone https://github.com/facebookresearch/detectron2.git
