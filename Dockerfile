@@ -3,13 +3,14 @@ FROM nvidia/cuda:11.8.0-devel-ubuntu22.04
 
 # 更新apt-get并安装必要的依赖包
 RUN apt-get update && \
-    apt-get install -y build-essential git wget libglib2.0-0 libsm6 libxext6 libxrender-dev
+    apt-get install -y git g++ build-essential wget libglib2.0-0 libsm6 libxext6 libxrender-dev
 
 # 下载并安装Anaconda
 RUN wget https://repo.anaconda.com/archive/Anaconda3-2023.07-2-Linux-x86_64.sh \
     && bash Anaconda3-2023.07-2-Linux-x86_64.sh -b \
     && rm Anaconda3-2023.07-2-Linux-x86_64.sh
 
+# 配置环境变量
 ENV PATH /root/anaconda3/bin:$PATH
 
 # 创建名为basehome的conda环境
