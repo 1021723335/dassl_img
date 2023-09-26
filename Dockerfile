@@ -24,7 +24,7 @@ WORKDIR /workspace/detectron2
 RUN python -m pip install -e .
 
 # 克隆Dassl仓库
-RUN https://github.com/KaiyangZhou/Dassl.pytorch.git
+RUN git clone https://github.com/KaiyangZhou/Dassl.pytorch.git
 
 # 从源码安装Dassl
 WORKDIR /workspace/Dassl.pytorch
