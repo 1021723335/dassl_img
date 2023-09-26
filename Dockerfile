@@ -1,6 +1,9 @@
 # 指定基础镜像
 FROM continuumio/anaconda3:main
 
+# 更新apt-get并安装编译工具
+RUN apt-get update && apt-get install -y build-essential 
+
 # 创建名为basehome的conda环境，其中python版本为3.8
 RUN conda create -n basehome python=3.8
 
