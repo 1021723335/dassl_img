@@ -4,9 +4,6 @@ FROM continuumio/anaconda3:main
 # 更新apt-get并安装编译工具
 RUN apt-get update && apt-get install -y build-essential 
 
-# 创建名为basehome的conda环境，其中python版本为3.8
-RUN conda create -n basehome python=3.8
-
 # 使用新创建的conda环境
 SHELL ["conda", "run", "-n", "basehome", "/bin/bash", "-c"]
 
@@ -23,11 +20,4 @@ RUN git clone https://github.com/facebookresearch/detectron2.git
 WORKDIR /workspace/detectron2
 RUN python -m pip install -e .
 
-WORKDIR /workspace
-# 克隆Dassl仓库
-RUN git clone https://github.com/KaiyangZhou/Dassl.pytorch.git
-
-# 从源码安装Dassl
-WORKDIR /workspace/Dassl.pytorch
-RUN pip install -r requirements.txt
-RUN python setup.py develop
+RUN pip install opencv-python
