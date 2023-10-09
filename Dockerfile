@@ -4,9 +4,6 @@ FROM continuumio/anaconda3:main
 # 更新apt-get并安装编译工具
 RUN apt-get update && apt-get install -y build-essential 
 
-# 使用新创建的conda环境
-SHELL ["conda", "run", "-n", "basehome", "/bin/bash", "-c"]
-
 # 设置工作目录
 WORKDIR /workspace
 
