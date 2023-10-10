@@ -1,13 +1,10 @@
-# 指定基础镜像
-FROM continuumio/anaconda3:main
+# 第一阶段：构建依赖项
+FROM continuumio/anaconda3:main AS builder
 
 # 更新apt-get并安装编译工具
 RUN apt-get update && apt-get install -y build-essential && \
     apt-get install -y libgl1-mesa-glx && \
     rm -rf /var/lib/apt/lists/*
-
-# 设置工作目录
-WORKDIR /workspace
 
 # 安装torch, torchvision, torchaudio
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
@@ -19,4 +16,8 @@ RUN git clone https://github.com/facebookresearch/detectron2.git
 WORKDIR /workspace/detectron2
 RUN python -m pip install -e .
 
-RUN pip install opencv-python
+# 第二阶段：构建最终镜像
+FROM continuumio/anaconda3:main AS final
+
+# 从第一阶段复制构建好的依赖项
+COPY --from=builder /workspace /workspace
