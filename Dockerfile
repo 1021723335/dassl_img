@@ -4,7 +4,8 @@ FROM continuumio/anaconda3:main AS builder
 # 更新apt-get并安装编译工具
 RUN apt-get update && apt-get install -y build-essential && \
     apt-get install -y libgl1-mesa-glx && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get clean
 
 # 安装torch, torchvision, torchaudio
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
