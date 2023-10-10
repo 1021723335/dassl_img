@@ -1,5 +1,5 @@
 # 第一阶段：构建依赖项
-FROM continuumio/anaconda3:main AS builder
+FROM continuumio/anaconda3:main
 
 # 更新apt-get并安装编译工具
 RUN apt-get update && apt-get install -y build-essential && \
@@ -17,8 +17,3 @@ RUN git clone https://github.com/facebookresearch/detectron2.git
 WORKDIR /workspace/detectron2
 RUN python -m pip install -e .
 
-# 第二阶段：构建最终镜像
-FROM continuumio/anaconda3:main AS final
-
-# 从第一阶段复制构建好的依赖项
-COPY --from=builder /workspace /workspace
