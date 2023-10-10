@@ -2,7 +2,9 @@
 FROM continuumio/anaconda3:main
 
 # 更新apt-get并安装编译工具
-RUN apt-get update && apt-get install -y build-essential 
+RUN apt-get update && apt-get install -y build-essential && \
+    apt-get install -y libgl1-mesa-glx && \
+    rm -rf /var/lib/apt/lists/*
 
 # 设置工作目录
 WORKDIR /workspace
