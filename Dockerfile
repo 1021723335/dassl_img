@@ -1,7 +1,10 @@
-# 第一阶段：构建依赖项
+# 使用基础镜像
 FROM continuumio/anaconda3:main
 
-# 更新apt-get并安装编译工具
+# 激活conda的base环境
+SHELL ["conda", "run", "-n", "base", "/bin/bash", "-c"]
+
+# 在base环境中执行以下命令
 RUN apt-get update && apt-get install -y build-essential && \
     apt-get install -y libgl1-mesa-glx && \
     rm -rf /var/lib/apt/lists/* && \
@@ -19,3 +22,6 @@ RUN git clone https://github.com/facebookresearch/detectron2.git
 # 从源码安装detectron2
 WORKDIR /workspace/detectron2
 RUN python -m pip install -e .
+
+# 安装opencv-python
+RUN pip install opencv-python
