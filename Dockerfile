@@ -22,3 +22,11 @@ RUN python -m pip install -e .
 
 RUN pip install opencv-python
 
+WORKDIR /workspace
+# 克隆Dassl仓库
+RUN git clone https://github.com/KaiyangZhou/Dassl.pytorch.git
+
+# 从源码安装Dassl
+WORKDIR /workspace/Dassl.pytorch
+RUN pip install -r requirements.txt
+RUN python setup.py develop
